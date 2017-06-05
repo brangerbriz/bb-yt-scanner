@@ -1,8 +1,6 @@
 # bb-yt-scanner
 
-quickly search/scan videos to add them to a personal playlist. watch the video below for a demo ( pw: ytscanner )
-
-<iframe src="https://player.vimeo.com/video/220309655" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+quickly search/scan videos to add them to a personal playlist. watch [this tutorial video](https://vimeo.com/220309655) for a demo ( pw: ytscanner )
 
 
 ## dev notes
