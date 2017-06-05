@@ -27,7 +27,7 @@ let oauth2Client = new OAuth2(
 	yt_credz.clientSecret,
 	redirect_url
 );
- 
+
 
 let googleAuthURL = oauth2Client.generateAuthUrl({
 	scope: "https://www.googleapis.com/auth/youtube",
