@@ -1,7 +1,7 @@
 {
   "name": "bb-yt-scanner",
   "version": "1.0.0",
-  "description": "",
+  "description": "quickly search/scan videos to add to personal playlist",
   "main": "server.js",
   "scripts": {
     "start": "node server http://ytscanner.brangerbriz.com/app",
@@ -9,6 +9,10 @@
   },
   "author": "../n!ck.br!z",
   "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brangerbriz/bb-yt-scanner.git"
+  },
   "dependencies": {
     "express": "^4.15.3",
     "googleapis": "^19.0.0",
