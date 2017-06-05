@@ -1,0 +1,147 @@
+<dom-module id="bb-media">
+<!--
+	@name
+		bb-media
+
+	@description
+		general media container/wrapper for a single media element ( ex: img, video, audio, iframe )
+
+	@element
+		<bb-media></bb-media>
+
+	@attributes
+		{
+			"fullwidth": {
+				"type": "Boolean",
+				"value": "false",
+				"info": "makes this a full width media element"
+			},
+			"caption": {
+				"type": "Boolean",
+				"value": "false",
+				"info": "optional caption which appears below the media element"
+			}
+	}
+
+-->
+	<template>
+
+		<style>
+
+			:host {
+				--width: 752px;
+				--left-cap:76px;
+
+				display: block;
+				width:100%;
+				max-width: var(--width);
+				margin: 0 auto;
+				position: relative;
+			}
+
+			:host ::content img {
+				width:100%;
+			}
+
+			:host ::content video {
+				width:100%;
+			}
+
+			:host ::content audio {
+
+			}
+
+			:host ::content iframe {
+				width:100%;
+			}
+
+			#caption {
+				display: block;
+				font-family: 'Graphik-Regular';
+				font-size: 16px;
+				/*color:#c4c4c4;*/
+				color:#A7A8A7;
+				width: 100%;
+				margin: 0 auto;
+				position: relative;
+				top:3px;
+				left: var(--left-cap);
+				line-height: 22px;
+			}
+
+
+		</style>
+
+		<content></content>
+		<div id="caption"></div>
+
+	</template>
+	<script>
+		Polymer({
+			is:"bb-media",
+			properties: {
+
+				fullwidth: {
+					type: Boolean,
+					value: false,
+					reflectToAttribute: true,
+					observer: 'fullWidth'
+				},
+				caption: {
+					type: Boolean,
+					value: false,
+					reflectToAttribute: true,
+					observer: 'changeCaption'
+				}
+
+			},
+
+			maxWidth: { value:754, unit:'px' },
+			fullwidth: true,
+			initResize: false,
+
+			ready: function(){
+				if( typeof BBElements !== "undefined" )
+					BBElements.eleReady( this );
+			},
+
+			updateWidth: function( width, unit ){
+				this.maxWidth = { value:width, unit:unit };
+				this.customStyle['--width'] = this.maxWidth.value+this.maxWidth.unit;
+				this.updateStyles();
+			},
+
+			fullWidth: function( newVal, oldVal ){
+				if( newVal ){
+					this.fullwidth = true;
+					this.customStyle['--width'] = "100%";
+					this.customStyle['--left-cap'] = "0px";
+				} else {
+					this.fullwidth = false;
+					this.customStyle['--width'] = this.maxWidth.value+this.maxWidth.unit;
+					this.customStyle['--left-cap'] = "76px";
+					// if in a bb-container, trigger resize once ( after bb-media is loaded )
+					// fixes the fact that bb-container's resize launches b4 bb-media is ready
+					if( !this.initResize && document.querySelector('bb-container') !== null ){
+						document.querySelector('bb-container').resize();
+						this.initResize = true;
+					}
+				}
+				this.updateStyles();
+			},
+			changeCaption: function( newVal, oldVal ){
+				var child = this.children[0];
+				if( child.tagName === "IMG" ){
+					var alt = child.getAttribute('alt');
+					if( typeof alt == "string"){
+						if( newVal ) this.$.caption.textContent = alt;
+					}
+				}
+			}
+		});
+
+		/*
+			TODO: custom video/audio controls?
+		*/
+	</script>
+</dom-module>

@@ -1,0 +1,80 @@
+<dom-module id="bb-quote">
+<!--
+	@name
+		bb-quote
+
+	@description
+		pull quote element 
+
+	@element
+		<bb-quote></bb-quote> 
+	
+	@attributes
+		{
+			"credit": { 
+				"type": "String",
+				"value" : "none",
+				"info" : "optional credit line that will appear below the quote"
+			}
+		}
+	
+-->
+	<template>
+
+		<style>			
+
+			:host {
+				font-family: 'ITCAvantGardePro-Bold';
+				font-size: 36px;
+				letter-spacing: 0.3px;
+				line-height: 41px;
+				display: block;
+				color:#000;
+				border-left: 8px solid #000;
+				padding-left: 21px;
+			}	
+
+			#credit {
+				display: block;
+				font-family: 'Graphik-Regular';
+				font-size: 16px;
+				line-height: 11px;
+				/*color:#c4c4c4;*/
+				color:#A7A8A7;
+				width: 100%;
+				padding-top: 19px;
+			}
+
+		</style>
+
+		<content></content>
+		<div id="credit"></div>	
+	
+	</template>
+	<script>
+		Polymer({
+			is:"bb-quote",
+
+			properties: {
+
+				credit: { 
+					type: String,
+					reflectToAttribute: true, 
+					observer: 'changeCredit'
+				}
+
+			},
+
+			ready: function(){
+				if( typeof BBElements !== "undefined" )
+					BBElements.eleReady( this );
+			},
+
+			changeCredit: function( newVal, oldVal ){
+				if( newVal ){
+					this.$.credit.textContent = newVal;
+				}
+			}	
+		});
+	</script>
+</dom-module>

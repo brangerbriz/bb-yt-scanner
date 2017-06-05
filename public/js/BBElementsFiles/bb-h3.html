@@ -1,0 +1,45 @@
+<dom-module id="bb-h3">
+<!--
+	@name
+		bb-h3
+
+	@description
+		subhead level 2 
+
+	@element
+		<bb-h3></bb-h3> 
+	
+	@attributes
+		{}
+	
+-->
+	<template>
+
+		<style>			
+
+			:host {
+				font-family: 'ITCAvantGardePro-Bold';
+				font-size: 20px;
+				display: block;
+				margin: 47px 0px;
+				color:#e40477;
+				text-transform: uppercase;
+				/* line-height? if so, edit unresolvedStyles in BBElements.js */
+			}	
+
+		</style>
+
+		<content></content>		
+	
+	</template>
+	<script>
+		Polymer({
+			is:"bb-h3",
+			
+			ready: function(){
+				if( typeof BBElements !== "undefined" )
+					BBElements.eleReady( this );
+			}			
+		});
+	</script>
+</dom-module>

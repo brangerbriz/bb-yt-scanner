@@ -1,0 +1,20 @@
+{
+  "name": "bb-yt-scanner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server http://ytscanner.brangerbriz.com/app",
+	"dev": "node server"
+  },
+  "author": "../n!ck.br!z",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.15.3",
+    "googleapis": "^19.0.0",
+    "hogan-express": "^0.5.2",
+    "locutus": "^2.0.8",
+    "request": "^2.81.0",
+    "socket.io": "^2.0.2"
+  }
+}

@@ -1,0 +1,98 @@
+<dom-module id="bb-p">
+<!--
+	@name
+		bb-p
+
+	@description
+		paragraph tag for general copy/text
+
+	@element
+		<bb-p></bb-p> 
+	
+	@attributes
+		{}
+	
+-->
+	<template>
+
+		<style>		
+
+
+			:host {
+				display: block;
+				font-family: 'Graphik-Regular';
+				font-size: 16px;
+				line-height: 25px;
+				padding: 28px 0px;
+				color:#000;
+			}
+
+			:host :content ::-moz-selection { background: #e40477; color:#fff; }
+			:host :content ::selection { background: #e40477; color:#fff; }
+
+			:host ::content a {
+				color: #e40477;
+				text-decoration: none;
+				padding-bottom: 2px;
+			}
+
+			:host ::content a:hover {
+				color: #e40477;
+				border-bottom: 2px solid #e40477;
+			}
+
+			:host ::content code {
+				font-family: 'inconsolata';
+				color: #731ac2;
+				background-color: #f7f7f7;
+				padding:5px;
+			}
+
+			:host ::content img {
+				max-width:450px;
+				float: right;
+				padding: 0px 0px 24px 24px;
+			}
+
+			:host ::content bb-quote {
+				border:none;
+				width: 300px;
+				/*padding: 0px 0px 21px 0px;*/
+				float: left;
+				color:#000;
+				padding-top:20px;
+				padding-bottom:20px; 
+			}
+			
+			#noteContainer {
+				float:right;
+			}
+
+			.marginalNotes {
+				display: block;
+				font-family: 'Graphik-Regular';
+				font-size: 16px;
+				line-height: 25px;
+				color:#c4c4c4;
+			}
+
+			.noteNum {
+				color:#e40477;
+			}
+
+		</style>
+
+		<content></content>
+
+	</template>
+	<script>
+		Polymer({
+			is:"bb-p",		
+
+			ready: function(){
+				if( typeof BBElements !== "undefined" )
+					BBElements.eleReady( this );
+			}		
+		});
+	</script>
+</dom-module>

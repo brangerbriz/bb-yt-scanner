@@ -1,0 +1,181 @@
+<dom-module id="bb-code">
+<!--
+	@name
+		bb-code
+
+	@description
+		for displaying large blocks of demo code with syntax highlighting
+
+	@element
+		<bb-code></bb-code>
+
+	@attributes {
+		"language": {
+			"type": "String",
+			"value": "javascript",
+			"info": "the programming language being written inside the element"
+		},
+		"wrap":{
+			"type": "Boolean",
+			"value": "false",
+			"info": "whether to wrap the overflow-x or not"
+		}
+	}
+
+-->
+	<template>
+
+		<style>
+
+			:host {
+				display: block;
+				width:100%;
+				margin: 0 auto;
+				position: relative;
+			}
+
+			:host ::content {}
+
+			.bg {
+				background-color: #F7F7F7;
+				font-family: "inconsolata";
+				overflow-x: auto;
+			}
+
+			/*
+			Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+			*/
+
+			::content .hljs {
+				display: block;
+				overflow-x: auto;
+				/*white-space: pre-wrap;*/
+				padding: 0.5em;
+				/*background: #F0F0F0;*/
+			}
+
+			/* Base color: saturation 0; */
+
+			::content .hljs, ::content .hljs-subst { color: #7C7C7C; }
+
+			::content .hljs-comment { color: #A7A8A7; }
+
+			::content .hljs-keyword,
+			::content .hljs-attribute,
+			::content .hljs-selector-tag,
+			::content .hljs-meta-keyword,
+			::content .hljs-doctag,
+			::content .hljs-name {}
+
+			/* User color: hue: 0 */
+
+			::content .hljs-type,
+			::content .hljs-string,
+			::content .hljs-selector-id,
+			::content .hljs-selector-class,
+			::content .hljs-quote,
+			::content .hljs-template-tag,
+			::content .hljs-deletion { color: #CE6209; }
+
+			::content .hljs-number { color:#731AC1; }
+
+			::content .hljs-function > ::content .hljs-keyword,
+			::content .hljs-name { color: #E20177; }
+			::content .hljs-keyword { color: #1D81A0; }
+
+			::content .hljs-title,
+			::content .hljs-attr,
+			::content .hljs-section { color: #209951; }
+
+			::content .hljs-regexp,
+			::content .hljs-symbol,
+			::content .hljs-variable,
+			::content .hljs-template-variable,
+			::content .hljs-link,
+			::content .hljs-selector-attr,
+			::content .hljs-selector-pseudo { color: #BC6060; }
+
+			/* Language color: hue: 90; */
+
+			::content .hljs-literal { color: #78A960; }
+
+			::content .hljs-built_in { color: #E20177; }
+
+			::content .hljs-bullet,
+			::content .hljs-code,
+			::content .hljs-addition { color: #397300; }
+
+			/* Meta color: hue: 200 */
+			::content .hljs-meta { color: #1f7199; }
+			::content .hljs-meta-string { color: #4d99bf; }
+
+			/* Misc effects */
+			::content .hljs-emphasis { font-style: italic; }
+			::content .hljs-strong { font-weight: bold; }
+
+		</style>
+
+<pre class="bg"><code class="js"><content></content></code></pre>
+
+	</template>
+	<script>
+
+		Polymer({
+			is:"bb-code",
+
+			properties: {
+				"language": {
+					type: String,
+					value: 'javascript',
+					reflectToAttribute: true,
+					observer: 'changeLanguage'
+				},
+				"wrap":{
+					type: Boolean,
+					value: false,
+					reflectToAttribute: true,
+					observer: 'changeWrap'
+				}
+			},
+
+			changeLanguage: function(newVal,oldVal){
+				if( newVal==="" ) newVal="js";
+				this.$$('code').className = newVal;
+			},
+
+			changeWrap: function(newVal,oldVal){
+				if(newVal)
+					this.$$('code').style.whiteSpace ="pre-wrap";
+			},
+
+			highlightBlock: function(){
+				var self = this;
+				if(typeof hljs === "undefined" ){
+					setTimeout(function(){ self.highlightBlock() },100);
+				} else {
+					hljs.highlightBlock(this.$$('code'));
+				}
+			},
+
+			ready: function(){
+				var self = this;
+				// element ready
+				if( typeof BBElements !== "undefined" ){
+					BBElements.eleReady( this );
+				}
+				// load highlight library
+				if( document.querySelector('#highlightJS')==null ){
+					var hjs = document.createElement('script');
+					hjs.id = "highlightJS";
+					hjs.src = 'js/BBElementsFiles/highlightJS/highlight.pack.js';
+					document.head.appendChild(hjs);
+					hjs.onload = function(){
+						hljs.highlightBlock(self.$$('code'));
+					}
+				} else {
+					this.highlightBlock();
+				}
+			}
+		});
+	</script>
+</dom-module>

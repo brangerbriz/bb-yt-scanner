@@ -1,0 +1,56 @@
+<dom-module id="bb-tags">
+<!--
+	@name
+		bb-tags
+
+	@description
+		collection of tags ( individual tags need to be in <a> elements inside of <bb-tags> )
+
+	@element
+		<bb-tags></bb-tags> 
+	
+	@attributes
+		{}
+	
+-->
+	<template>
+
+		<style>			
+
+			:host {
+				display: block;
+				font-family: 'Graphik-Medium';
+				font-size:16px;		
+				margin: 50px 0px;		
+			}	
+
+			:host ::content a {
+				text-decoration: none;
+				color:#000;
+				background-color: #ebfcff;
+				padding: 9px 10px;
+				margin-right:6px;
+				line-height: 48px;
+			}
+
+			:host ::content a:hover {
+				color:#fff;
+				background-color: #e40477;
+			}
+
+		</style>
+
+		<content></content>
+	
+	</template>
+	<script>
+		Polymer({
+			is:"bb-tags",
+
+			ready: function(){
+				if( typeof BBElements !== "undefined" )
+					BBElements.eleReady( this );
+			}
+		});
+	</script>
+</dom-module>

@@ -1,0 +1,325 @@
+<dom-module id="bb-container">
+<!--
+	@name
+		bb-container
+
+	@description
+		responsive container for other bb elements
+
+	@element
+		<bb-container></bb-container>
+
+	@attributes
+		{}
+
+-->
+	<template>
+
+		<style>
+
+			/* default styles 					*/
+			/* for anything greater than 1280px */
+
+			:host {
+				display: block;
+				width:100%;
+				margin: 32px auto;
+				box-sizing: border-box;
+			}
+
+			:host:before, :host:after{
+				box-sizing: border-box;
+			}
+
+			:host ::content ::-moz-selection { background: #e40477; color:#fff; }
+			:host ::content ::selection { background: #e40477; color:#fff; }
+
+			:host ::content > bb-h1,
+			:host ::content > bb-h2,
+			:host ::content > bb-h3,
+			:host ::content > bb-p,
+			:host ::content > bb-div,
+			:host ::content > bb-row,
+			:host ::content > bb-tags,
+			:host ::content > bb-quote,
+			:host ::content > bb-code code,
+			:host ::content > bb-footer {
+				width:100%;
+				margin-left:auto;
+				margin-right:auto;
+				max-width: 580px
+			}
+
+			:host ::content > bb-media { left:-76px; }
+			:host ::content > bb-media[fullwidth] { left:0px; }
+
+			:host ::content > bb-media #caption {
+				max-width: 580px
+			}
+
+			:host ::content > bb-p img {
+				margin-right: -298px;
+			}
+
+			:host ::content > bb-p bb-quote {
+				margin-left: -150px;
+			}
+
+			:host ::content > bb-quote {
+				position: relative;
+				left: -15px;
+			}
+
+
+			/* if less than 1280px ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ */
+			/* ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ */
+			@media (max-width: 1280px) {
+
+				:host ::content > bb-h3,
+				:host ::content > bb-p,
+				:host ::content > bb-code code { max-width:470px;  }
+				:host ::content > bb-div { max-width:470px;  }
+
+				:host ::content > bb-p img {
+					max-width: 350px;
+					margin-right: -234px;
+				}
+
+				:host ::content > bb-p bb-quote {
+					margin-left: -257px;
+					padding-right: 51px;
+				}
+
+				:host ::content > bb-h1,
+				:host ::content > bb-h2,
+				:host ::content > bb-row,
+				:host ::content > bb-tags,
+				:host ::content > bb-media,
+				:host ::content > bb-footer { max-width: 710px; }
+
+				:host ::content > bb-media { left:0px; }
+
+				:host ::content > bb-quote {
+					max-width: 720px;
+					left: -8px;
+				}
+
+
+			}
+
+			/* if less than 1023px ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ */
+			/* ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ */
+			@media (max-width: 1023px) {
+
+				:host ::content > bb-h1,
+				:host ::content > bb-h2,
+				:host ::content > bb-h3,
+				:host ::content > bb-row,
+				:host ::content > bb-tags,
+				:host ::content > bb-footer,
+				:host ::content > bb-quote,
+				:host ::content > bb-p,
+				:host ::content > bb-code code { max-width:530px;  }
+				:host ::content > bb-div { max-width:530px;  }
+
+				:host ::content > bb-media { max-width: 710px; }
+
+				:host ::content > bb-quote { left: -15px; }
+
+				:host ::content > bb-p img {
+					max-width: 350px;
+					margin-right: -86px;
+				}
+
+				:host ::content > bb-p bb-quote {
+					margin-left: -110px;
+					padding-right: 6px;
+					width:256px;
+				}
+
+			}
+
+			/* if less than  787px ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ */
+			/* ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ */
+			@media (max-width: 767px) {
+				:host ::content > bb-h1,
+				:host ::content > bb-h2,
+				:host ::content > bb-h3,
+				:host ::content > bb-row,
+				:host ::content > bb-tags,
+				:host ::content > bb-footer,
+				:host ::content > bb-p,
+				:host ::content > bb-code code { max-width:90%;  }
+				:host ::content > bb-div { max-width:90%;  }
+
+				:host ::content > bb-h1 { font-size: 50px; }
+				:host ::content > bb-h2 { font-size: 32px; }
+
+				:host ::content > bb-media #caption { max-width: 90%; }
+
+				:host ::content > bb-p img {
+					display: block;
+					float: none;
+					width: 90%;
+					max-width: 90%;
+					padding: 0px 0px 23px 0px;
+				}
+
+				:host ::content > bb-p bb-quote {
+					float: none;
+					margin: 0px;
+					width: 90%;
+					max-width: 90%;
+				}
+
+				:host ::content bb-quote {
+					width: 90%;
+					max-width: 90%;
+					left: 4px;
+				}
+
+			}
+
+
+
+		</style>
+
+		<content></content>
+
+	</template>
+	<script>
+		Polymer({
+			is:"bb-container",
+
+			positionLogo: function(){
+				var logo = this.children[0];
+				var l;
+				if( innerWidth < 767 ){
+					l = innerWidth/2 - logo.offsetWidth/2;
+				} else if( innerWidth < 1023 ){
+					l = innerWidth/2 - 265; // bb-p(530)/2
+				} else if( innerWidth < 1280 ){
+					l = innerWidth/2 - 235; // bb-p(470)/2
+				} else {
+					//  window/2       max-width/2   bb-logo ( 0.33 to adjust the B )
+					l = innerWidth/2 - 290 - 		logo.offsetWidth*0.33;
+				}
+				logo.style.marginLeft = l+"px";
+			},
+
+			repositionMarginalNote: function( note, spot ){
+				var temp = note;
+				var parent = note.parentNode;
+				note.parentNode.removeChild( note );
+				if( spot == "bottom"){
+					parent.appendChild( temp );
+				} else {
+					parent.insertBefore( temp, parent.childNodes[0] );
+				}
+
+			},
+
+			resizeMarginalNotes: function( note ){
+				var w, mr, f, mt, p;
+				if( innerWidth < 767 ){
+					w = 90+"%";
+					mr = "0px";
+					mt = "10px";
+					f = "none";
+					p = "0px";
+					this.repositionMarginalNote( note, "bottom" );
+				} else if( innerWidth < 1023 ){
+					f = "right";
+					w = 174+'px';
+					mr = -99+"px";
+					mt = "0px";
+					p = "0 0 20px 20px";
+					this.repositionMarginalNote( note, "top" );
+				} else if( innerWidth < 1280 ){
+					f = "right";
+					w = 222+'px';
+					mr = -236+'px';
+					mt = "0px";
+					p = "0 0 20px 20px";
+					this.repositionMarginalNote( note, "top" );
+				} else {
+					f = "right";
+					w = 250+'px';
+					mr = -282+"px";
+					mt = "0px";
+					p = "0 0 20px 20px";
+					this.repositionMarginalNote( note, "top" );
+				}
+				note.style.width = w;
+				note.style.marginRight = mr;
+				note.style.marginTop = mt;
+				note.style.float = f;
+				note.style.padding = p;
+			},
+
+			resizeMedias: function( media ){
+				if( !media.fullwidth && typeof media.updateWidth=='function' ){
+
+					if( innerWidth < 767 ){
+						media.updateWidth( 90, '%' );
+					} else if( innerWidth < 1023 ){
+						media.updateWidth( 710, 'px' );
+					} else if( innerWidth < 1280 ){
+						media.updateWidth( 710, 'px' );
+					} else {
+						media.updateWidth( 754, 'px' );
+					}
+
+				}
+
+				if( media.getAttribute('fullwidth')==null){
+					if( innerWidth < 767 ){
+						for (var i = 0; i < media.children.length; i++)
+							if( media.children[i].id=="caption" )
+								media.children[i].style.marginLeft="-76px";
+
+					} else {
+						for (var i = 0; i < media.children.length; i++)
+							if( media.children[i].id=="caption" )
+								media.children[i].style.marginLeft="0px";
+					}
+				}
+			},
+
+			resize: function(){
+
+				// reposition bb-logo ( if it's first element in bb-container )
+				if( this.children[0].tagName=="BB-LOGO" ){
+					this.positionLogo();
+				}
+
+				// resize marginal notes
+				var notes = document.querySelectorAll('bb-p > aside');
+				for (var i = 0; i < notes.length; i++) {
+					this.resizeMarginalNotes( notes[i] );
+				}
+
+				// resize media elements
+				var medias = document.querySelectorAll('bb-media');
+				for (var i = 0; i < medias.length; i++) {
+					this.resizeMedias( medias[i] );
+				}
+
+			},
+
+			created: function(){
+				// window.addEventListener('resize',()=>{this.resize()});
+				var self = this;
+				window.addEventListener('resize',function(){
+					self.resize();
+				})
+			},
+
+			ready: function(){
+				if( typeof BBElements !== "undefined" )
+					BBElements.eleReady( this );
+				// this.resize();
+			}
+		});
+	</script>
+</dom-module>

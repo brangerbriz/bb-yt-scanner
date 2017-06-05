@@ -1,0 +1,45 @@
+<dom-module id="bb-h2">
+<!--
+	@name
+		bb-h2
+
+	@description
+		subhead level 1 
+
+	@element
+		<bb-h2></bb-h2> 
+	
+	@attributes
+		{}
+	
+-->
+	<template>
+
+		<style>			
+
+			:host {
+				font-family: 'ITCAvantGardePro-Bold';
+				font-size: 36px;
+				letter-spacing: 0.3px;
+				display: block;
+				margin: 47px 0px;
+				color:#000;
+				line-height: 41px;
+			}	
+
+		</style>
+
+		<content></content>		
+	
+	</template>
+	<script>
+		Polymer({
+			is:"bb-h2",
+			
+			ready: function(){
+				if( typeof BBElements !== "undefined" )
+					BBElements.eleReady( this );
+			}			
+		});
+	</script>
+</dom-module>

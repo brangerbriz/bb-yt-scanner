@@ -1,0 +1,164 @@
+<dom-module id="bb-footer">
+<!--
+	@name
+		bb-footer
+
+	@description
+		footer element for blog posts and portfolio items
+
+	@element
+		<bb-footer></bb-footer> 
+	
+	@attributes
+		{
+			"back-text": { 
+				"type": "String",
+				"value": "none",
+				"info": "the back text/copy, ex: Back to all Projects"
+			},
+			"back-url": { 
+				"type": "String",
+				"value": "none",
+				"info": "the url to where this should link back to"
+			}
+		}
+	
+-->
+	<template>
+
+		<style>			
+
+			:host {
+				display: block;
+				font-family: 'Graphik-Regular';
+				font-size: 16px;
+				line-height: 25px;
+				color:#000;	
+				padding-top: 63px;
+				border-top: 1px solid #000;
+			}	
+			
+			#top {
+				margin-bottom: 65px;
+			}
+				#back { 
+					text-decoration: none; 
+					color:black;
+				}
+				#backArrow { float:right; }
+				#backTxt {
+					font-family: 'ITCAvantGardePro-Bold';
+					font-size: 36px;
+					letter-spacing: 0.3px;					
+					line-height: 41px;
+				}
+			
+			#bottom {
+				display: flex;
+			}		
+
+			#bottom > div {
+				width: 50%;
+			}
+				.addy {
+					margin-bottom: 41px;
+				}
+				.local {
+					font-family: 'ITCAvantGardePro-Bold';
+					font-size: 20px;
+					display: block;
+				}
+
+			@media (max-width: 767px) {
+				#bottom { display: block; }
+				#bottom > div { 
+					width: 100%; 
+					margin-bottom: 45px;
+				}
+			}
+
+	
+		</style>
+
+		<div id="top">
+			<a href="" id="back">
+				<div id="backArrow">
+					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						 width="44.666px" height="22.105px" viewBox="0 0 44.666 22.105" enable-background="new 0 0 44.666 22.105" xml:space="preserve">
+						<polygon points="44.666,0 41.666,0 41.666,14 11.666,14 11.666,8.635 0,15.37 11.666,22.105 11.666,17 44.666,17 "/>
+					</svg>
+				</div>
+				<div id="backTxt"></div>				
+			</a>
+		</div>
+		<div id="bottom">
+			<div>
+				u<span></span>s@br<span></span>ange<span></span>rbriz.com
+				<br/>
+				305.8<span></span>93<span>.</span>88<span></span>58
+			</div>
+			<div>
+				<div class="addy">
+					<div class="local">miami</div>
+					<div>
+						261 NE 1st st floor 3 <br/>
+						Miami, FL 33132
+					</div>
+				</div>
+				<div class="addy">
+					<div class="local">chicago</div>
+					<div>
+						2010 W Fulton st F256<br/>
+						Chicago, IL 60612
+					</div>
+				</div>
+				<div class="addy">
+					<div class="local">cali</div>
+					<div>
+						cra 4 oeste #165<br/>
+						Cali, Colombia 760044
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	</template>
+	<script>
+		Polymer({
+			is:"bb-footer",
+
+			properties: {
+
+				"back-text": { 
+					type: String,
+					reflectToAttribute: true, 
+					observer: 'changeBackTxt'
+				},
+				"back-url": { 
+					type: String,
+					reflectToAttribute: true, 
+					observer: 'changeBackURL'
+				}
+
+			},
+
+			ready: function(){
+				if( typeof BBElements !== "undefined" )
+					BBElements.eleReady( this );
+			},
+
+			changeBackTxt: function( newVal, oldVal ){
+				if( newVal ){
+					this.$.backTxt.textContent = newVal;
+				}
+			},
+
+			changeBackURL: function( newVal, oldVal ){
+				if( newVal ){
+					this.$.back.setAttribute('href',newVal);
+				}
+			},
+
+		});
+	</script>
+</dom-module>

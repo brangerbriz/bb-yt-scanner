@@ -1,0 +1,131 @@
+
+html,body{ padding:0; margin:0; }
+
+button {
+	color: #fff;
+	font-family: 'Graphik-Regular';
+	background: #e40477;
+	border: none;
+	padding: 10px;
+	font-weight: bold;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+input {
+	border:none;
+	background-color: #EBFCFF;
+	padding: 10px;
+}
+
+/*#findVidz { display: block; }*/
+/*#scanVidz { display: none; }*/
+/*#videoList { display: none; }*/
+
+/* ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~  */
+/* ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ *  UTILS */
+/* ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~  */
+
+.hide { display: none; }
+.center-txt { text-align: center; }
+.no-top-margin { margin-top: 0px; }
+.spacer { height:10px; }
+
+/* ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~  */
+/* ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . FLEX BOXES */
+/* ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~  */
+
+.flex-50-50 {
+	display: flex;
+	justify-content: space-between;
+	max-width: 800px;
+	margin:0 auto;
+}
+.flex-50-50 > div {
+	width:50%;
+	margin: 0px 10px;
+}
+@media (max-width:765px) {
+	.flex { display: block; margin:25px;  }
+	.flex-50-50 > div { width: 100% }
+}
+
+/* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.flex-video-scan {
+	display: flex;
+	justify-content: space-between;
+	max-width: 800px;
+	margin:0 auto;
+}
+.flex-video-scan > div { margin: 0px 10px; }
+/*.flex-video-scan:first-child { width:20%; }*/
+/*.flex-video-scan:last-child { width:80%; }*/
+@media (max-width:765px) {
+	/*.flex { display: block; margin:25px;  }*/
+	/*.flex-video-scan > div { width: 100% }*/
+}
+
+/* ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+.flex-buttons {
+	display: flex;
+	justify-content: space-between;
+}
+
+.flex-buttons > input { width: 110px; }
+
+/* ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~  */
+/* ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ *  SIGN ON PAGE  */
+/* ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~  */
+
+#ntro-h1 {
+	text-align: center;
+	margin:0 auto;
+}
+
+#logos {
+	width:150px;
+	margin:50px auto;
+}
+
+#ntro-p {
+	width: 500px;
+	font-size: 20px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+/* ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~  */
+/* ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ *  VIDEO SCANNER */
+/* ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~  */
+
+#videoList { height:490px; }
+
+.vid-list-item {
+	width:200px;
+	padding: 3px;
+	font-family: 'Graphik-Regular';
+	font-size: 12px;
+	color:#e40477;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer;
+}
+.vid-list-item.selected {
+	background: #e40477;
+	color:#fff;
+}
+
+#storyBoard {
+	padding:20px;
+	font-family: 'Graphik-Regular';
+	text-align: center;
+	font-size:24px;
+}
+
+.storyboard-img {
+	display: inline-block;;
+	width:50%;
+}

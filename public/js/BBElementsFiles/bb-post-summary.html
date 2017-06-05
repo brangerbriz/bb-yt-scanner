@@ -1,0 +1,384 @@
+<dom-module id="bb-post-summary">
+<!--
+	@name
+		bb-post-summary
+
+	@description
+		creates a summary of a post post ( ex: for use in a list/index of posts )
+
+	@element
+		<bb-post-summary></bb-post-summary> 
+	
+	@attributes
+		{
+			"title": { 
+				"type": "String",
+				"value": "undefined",
+				"info": "every bb-post-summary must have a title, this is either the blog post title or portfolio entry title"
+				
+			},
+			"date": { 
+				"type": "String",
+				"value": "undefined",
+				"info": "optional date, for example the published date of a blog post"
+				
+			},
+			"img": { 
+				"type": "String",
+				"value": "undefined",
+				"info": "if you include an image path the bb-post-summary will appear as a portfolio item, without the img attribute it is rendered like a blog post"
+				
+			},
+			"divider": { 
+				"type": "Boolean",
+				"value": "undefined",
+				"info": "when set to false the default bottom border/divider is removed. set this to false for the last bb-post-summary in a list"
+				
+			}
+		}
+	
+-->
+	<template>
+
+		<style>		
+
+
+			:host {
+				display: block;
+				font-family: 'Graphik-Regular';
+				font-size: 16px;
+				line-height: 25px;
+				color:#000;
+			}
+			
+			.border { 
+				border-top: 1px solid #c4c4c4;
+				padding-bottom: 50px;
+				width: 50%;
+				margin:0 auto;
+			}
+
+			.full { width: 100%; }
+
+			.split {
+				display: flex;
+				flex-direction: row;
+				width: 100%;
+			}
+			
+			.summary { width:90%; }
+
+			.title {
+				font-family: 'ITCAvantGardePro-Bold';
+				letter-spacing: 0.3px;
+				display: block;
+				color:#000;
+			};
+
+			.title:hover {
+				color:#e40477;
+			}
+
+			#title1 {
+				font-size: 38px;
+				line-height: 44px;
+				padding-bottom: 20px;
+			}
+
+			#title2 {
+				font-size: 42px;
+				line-height: 44px;
+				padding-bottom: 30px;
+			}
+
+			#date2 { display: block; }
+			#date3 { display: block; }
+
+			#img, #imgMobile { width:100%; }
+			#imgMobile{ margin-top:25px; }
+
+			.mobile { display: none; }
+			#left { display: block; }
+			#right { display: block;  }
+			#wrap { margin:0; }
+
+			#date1 { /* mobile title */
+				margin-bottom: 15px;
+				margin-left: 15px;
+			}
+			#title3 { /* mobile title */
+				font-size: 32px;
+				line-height: 36px;
+				margin-bottom: 25px;
+			}
+
+			@media (max-width: 767px) {
+				.mobile { display: block; }
+				.full {display: none;}
+				#left { display: none; }
+				#right { display: none;  }
+				#wrap { margin:0 20px; }
+				.border { width: 100% }
+			}
+
+
+		</style>
+
+
+		<div id="wrap">
+			
+			<div class="full">
+				<!-- <div class="date" id="date1"></div> -->
+				<div class="title" id="title1"></div>
+			</div>		
+			<!-- MOBILE LAYOUT -->
+			<div class="mobile">
+				<div class="date" id="date1"></div>
+				<div class="title" id="title3"></div>
+			</div>
+
+			<div class="split">
+				<div id="left">
+					<div class="title" id="title2"></div>					
+					<div class="summary" id="sum1"><content></content></div>
+					<div class="date" id="date2"></div>
+				</div>
+				<div id="right">
+					<div class="date" id="date3"></div>
+					<div class="summary" id="sum2"></div>
+					<img src="#" alt="#" class="img" id="img"/>
+				</div>
+				<!-- MOBILE LAYOUT -->
+				<div class="mobile">
+					<div class="summary" id="sumMobile"></div>
+					<img src="#" alt="#" class="img" id="imgMobile"/>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="border" id="border"></div>
+
+		
+
+	</template>
+	<script>
+		Polymer({
+			is:"bb-post-summary",	
+
+			properties: {
+				title: { 
+					type: String,
+					reflectToAttribute: true, 
+					observer: 'titleChange'
+				},
+				date: { 
+					type: String,
+					reflectToAttribute: true, 
+					observer: 'dateChange'
+				},
+				img: { 
+					type: String,
+					reflectToAttribute: true, 
+					observer: 'imgChange'
+				},
+				divider: { 
+					type: String,
+					reflectToAttribute: true, 
+					observer: 'divChange'
+				}
+			},	
+
+			hasTitle:false,
+			hasDate:false,
+			hasImg:false,
+
+			// see Kevin's design docs for human readable rules for these
+			x:null, // title column start position 
+			w:null,	// title column end position
+			s:null, // summary column 
+			d:null, // date column 
+
+			created: function(){				
+
+				// title placement ( blog layout only )
+				var x = Math.floor(Math.random()*2)+1;
+					x += (Math.random()>0.75) ? Math.floor(Math.random()*2)+1 : 0;
+				var y = (x-4<0) ? 0 : x-4;
+				var w = Math.floor( Math.random()*((4-y)-1) )+2;
+					w += (w==2 && x!==6 && Math.random()<0.75) ? 1 : 0
+				this.x = x;
+				this.w = w;
+
+				// summary && date placement ( blog layout only )
+				var s = (Math.random()<0.5) ? 2 : 4;
+				var dArr;
+				if( s==2 ) dArr = [1,4,5,6];
+				else dArr = [1,2,3,6];
+				var d = Math.floor( Math.random()*dArr.length );
+				this.s = s;
+				this.d = dArr[d];
+
+				// console.log("x "+this.x,"w "+this.w,"s "+this.s,"d "+this.d);
+
+			},
+
+			ready: function(){
+				if( typeof BBElements !== "undefined" )
+					BBElements.eleReady( this );
+				
+				this.arrange();
+			},
+
+			titleChange: function(newVal,oldVal){
+				if( typeof newVal !== "undefined" ){
+					this.hasTitle = true;
+					this.$.title1.textContent = newVal;
+					this.$.title2.textContent = newVal;
+					this.$.title3.textContent = newVal;
+				} else {
+					this.hasTitle = false;
+				}	
+			},
+
+			dateChange: function(newVal,oldVal){
+				if ( typeof newVal !== "undefined" ){
+					this.hasDate = true;
+					this.$.date1.textContent = newVal;
+					this.$.date2.textContent = newVal;
+					this.$.date3.textContent = newVal;
+				} else {
+					this.hasDate = false;
+				}			
+			},
+			
+			imgChange: function(newVal,oldVal){
+				if ( typeof newVal !== "undefined" ){
+					this.hasImg = true;
+					this.$.img.src = newVal;
+					this.$.imgMobile.src = newVal;
+				} else {
+					this.hasImg = false;
+				}				
+			}, 
+
+			divChange: function(newVal,oldVal){
+				if ( newVal == "false" ){
+					this.$.border.style.display = "none";
+				} else {
+					this.$.border.style.display = "block";
+				}	
+			},
+
+			arrange: function(){
+				if( this.hasTitle ){
+					this.$.title1.textContent = this.getAttribute('title');
+					this.$.title2.textContent = this.getAttribute('title');
+					if( this.hasImg ){
+						this.portfolioLayout();
+					} else {
+						this.blogLayout();
+					}
+				} else {
+					this.$.wrap.style.display = "none";
+					throw new Error('BBElements: <bb-post-summary> must have a title attribute');
+				}				
+			},
+
+			blogLayout: function(){
+				this.$.title1.style.display = "block";
+				this.$.title2.style.display = "none";
+				this.$.img.style.display = "none";
+				this.$.imgMobile.style.display = "none";
+
+				// position title
+				var width = (this.w/8)*100;
+				this.$.title1.style.width = width+"%";
+				var left = (this.x/8)*100;
+				this.$.title1.style.paddingLeft = left+"%";
+
+				this.$.sumMobile.textContent = this.$.sum1.textContent;
+								
+				if( this.d < this.s ){
+					this.$.sum1.style.display = "none";	
+					this.$.sum2.textContent = this.$.sum1.textContent;				
+
+					var dleft = (this.d/8)*100;
+					// this.$.date1.style.display = "none";
+					this.$.date3.style.display = "none";
+					var lwidth;
+					if(this.s==2) lwidth = (1/8)*100;
+					else {
+						if( this.d==1 ) 	lwidth = (3/8)*100;
+						else if(this.d==2) 	lwidth = (2/8)*100;
+						else if(this.d==3) 	lwidth = (1/8)*100;
+						else console.log("SOMETHING WENT WRONG!");
+					}
+					this.$.left.style.paddingLeft = dleft+"%";
+					this.$.left.style.width = lwidth+"%";
+					this.$.right.style.width = ((3/8)*100)+"%";
+				
+				} else {
+					this.$.sum2.style.display = "none";
+
+					// this.$.date1.style.display = "none";
+					this.$.date2.style.display = "none";
+
+					var sleft = (this.s/8)*100;
+					var swidth = (3/8)*100;
+					var rleft;
+					if(this.s==2){
+						if( this.d==4 ) 	rleft = 0;
+						else if(this.d==5) 	rleft = (1/8)*100;
+						else if(this.d==6) 	rleft = (2/8)*100;
+						else console.log("SOMETHING WENT WRONG!");
+					} else {
+						rleft = 0; 
+					}
+
+					this.$.left.style.width = swidth+"%";
+					this.$.left.style.paddingLeft = sleft+"%";
+					this.$.right.style.paddingLeft = rleft+"%";
+				}
+
+				this.$.wrap.style.paddingBottom = "55px";
+
+				// remove bottom border on last child
+				// var numChildren = this.parentNode.children.length;
+				// if( this.parentNode.children[numChildren-1] == this ){
+				// 	this.$.border.style.display = "none";
+				// }
+				
+			},
+
+			portfolioLayout: function(){
+
+				this.$.title1.style.display = "none";
+				this.$.title2.style.display = "block";
+
+				this.$.left.style.width = "50%";
+				this.$.right.style.width = "50%";
+
+				this.$.sumMobile.textContent = this.$.sum1.textContent;
+				this.$.sum2.textContent = this.$.sum1.textContent;
+				this.$.sum1.style.display = "block";
+				this.$.sum2.style.display = "none";
+
+				this.$.right.style.paddingLeft = "60px";
+				this.$.img.style.display = "block";
+
+				this.$.date1.style.display = "none";
+				this.$.date2.style.display = "block";
+				this.$.date3.style.display = "none";
+				this.$.date2.style.padding = "15px";
+
+				this.$.border.style.width = "75%";
+				this.$.border.style.margin = "50px 0 0 0";
+
+			}
+			
+
+
+		});
+	</script>
+</dom-module>

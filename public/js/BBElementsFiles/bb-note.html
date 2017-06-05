@@ -1,0 +1,60 @@
+<dom-module id="bb-note">
+<!--
+	@name
+		bb-note
+
+	@description
+		marginal notes element, must be used inside a <bb-p> element ( at the moment a single <bb-p> element can only have up to 4 notes, if you need to use more notes create an additional <bb-p> element )
+
+	@element
+		<bb-note></bb-note> 
+	
+	@attributes
+		{
+
+		}
+	
+-->
+	<template>
+
+		<style>			
+
+			:host {
+				font-family: 'Graphik-Regular';
+				color:#e40477;
+				vertical-align: super;
+				font-size: 75%;
+			}	
+
+		</style>
+
+		<content></content>
+	
+	</template>
+	<script>
+		Polymer({
+			is:"bb-note",
+
+			properties: {
+
+				info: { 
+					type: String,
+					reflectToAttribute: true, 
+					observer: 'changeInfo'
+				}
+
+			},
+
+			ready: function(){
+				if( typeof BBElements !== "undefined" )
+					BBElements.eleReady( this );
+			},
+
+			changeInfo: function( newVal, oldVal ){
+				if( newVal ){
+					// this.$.credit.textContent = newVal;
+				}
+			}	
+		});
+	</script>
+</dom-module>

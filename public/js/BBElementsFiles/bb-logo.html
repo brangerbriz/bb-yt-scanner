@@ -1,0 +1,332 @@
+<dom-module id="bb-logo">
+<!--
+	@name
+		bb-logo
+
+	@description
+		renders an svg version of our logo
+
+	@element
+		<bb-logo></bb-logo>
+
+	@attributes
+		{
+			"markonly": {
+				"type": "Boolean",
+				"value": "false",
+				"info": "only displays the (B) mark"
+			},
+
+			"width": {
+				"type": "Number",
+				"value": "200",
+				"info": "changes the width (&& height proportionally) of svg"
+			},
+
+			"text-color": {
+				"type": "String",
+				"value": "#000000",
+				"info": "changes the color of the text (Branger Briz)"
+			},
+
+			"brand-color": {
+				"type": "String",
+				"value": "#e40477",
+				"info": "changes the color of the brand (circle && underscore)"
+
+			},
+
+			"fill-color": {
+				"type": "String",
+				"value": "#ffffff",
+				"info": "changes the color of the B in the circle"
+			}
+		}
+
+-->
+	<template>
+
+		<style>
+
+			:host {
+				--text-color: #000000;
+				--brand-color: #e40477;
+				--fill-color:#ffffff;
+				display: inline-block;
+			}
+
+			.brand-color{ fill:var(--brand-color); }
+			.text-color { fill:var(--text-color ); }
+			.fill-color { fill:var(--fill-color ); }
+
+		</style>
+		<a href="http://brangerbriz.com">
+		<svg id="logo" data-name="Layer 1" width="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 198.0 41.9">
+			<!-- circle B mark -->
+
+			<rect
+				class="fill-color"
+				id="mark_white"
+				width="29.649578"
+				height="26.986443"
+				x="6.2139831"
+				y="7.8118649" />
+
+			<polygon
+				id="mark_bottom_line"
+				class="brand-color"
+				points="13.85 23.32 13.85 25.67 27.99 25.67 27.99 23.32 18.56 23.32 13.85 23.32" />
+
+			<rect id="mark_top_line" class="brand-color" x="18.56" y="16.25" width="9.43" height="2.36"/>
+
+			<path id="mark_circle" class="brand-color"
+				d="M21,0a21,21,0,1,0,21,21A21,21,0,0,0,21,0ZM32.7,16.25V30.39H9.13V18.6h4.71V11.53H32.7v4.71Z"/>
+
+			<!-- full name -->
+
+			<!-- B -->
+			<g
+				id="l0"
+				transform="matrix(0.99992334,0,0,-0.9956891,62.856341,22.717548)">
+				<path
+				d="m 0,0 -2.415,0 0,-3.431 2.39,0 c 1.194,0 2.263,0.406 2.263,1.802 C 2.238,-0.279 1.12,0 0,0 m -0.559,6.939 -1.856,0 0,-2.922 1.831,0 c 1.043,0 1.906,0.303 1.906,1.498 0,1.196 -0.889,1.424 -1.881,1.424 M 5.109,-6.025 C 3.178,-7.678 1.398,-7.653 -1.042,-7.653 l -5.974,0 0,18.813 5.796,0 c 2.262,0 4.398,-0.026 6.024,-1.83 C 5.592,8.465 5.924,7.396 5.924,6.228 5.924,4.626 5.135,3.229 3.738,2.44 5.796,1.727 6.839,0.202 6.839,-1.931 c 0,-1.5 -0.56,-3.104 -1.73,-4.094"
+				class="text-color"
+				style="fill-opacity:1;fill-rule:nonzero;stroke:none"
+				id="path3434"
+				inkscape:connector-curvature="0" />
+			</g>
+			<!-- r -->
+			<g
+				id="l1"
+				transform="matrix(0.99992334,0,0,-0.9956891,74.322768,22.616386)">
+				<path
+				d="m 0,0 0,-7.755 -4.221,0 0,14.11 3.968,0 0,-1.5 0.049,0 c 0.738,1.45 1.908,1.983 3.535,1.983 l 0,-4.246 C 1.475,2.541 0,2.187 0,0"
+				class="text-color"
+				style="fill-opacity:1;fill-rule:nonzero;stroke:none"
+				id="path3438"
+				inkscape:connector-curvature="0" />
+			</g>
+			<!-- a -->
+			<g
+				id="l2"
+				transform="matrix(0.99992334,0,0,-0.9956891,85.355623,19.731974)">
+				<path
+				d="m 0,0 c -2.059,0 -3.482,-1.626 -3.482,-3.633 0,-1.958 1.525,-3.561 3.508,-3.561 2.06,0 3.535,1.576 3.535,3.61 C 3.561,-1.524 2.059,0 0,0 m 3.561,-10.652 0,1.526 -0.052,0 c -0.763,-1.448 -2.592,-2.007 -4.118,-2.007 -4.347,0 -7.093,3.354 -7.093,7.549 0,4.118 2.847,7.525 7.093,7.525 1.55,0 3.278,-0.586 4.118,-1.983 l 0.052,0 0,1.5 4.218,0 0,-14.11 -4.218,0 z"
+				class="text-color"
+				style="fill-opacity:1;fill-rule:nonzero;stroke:none"
+				id="path3442"
+				inkscape:connector-curvature="0" />
+			</g>
+			<!-- n -->
+			<g
+				id="l3"
+				transform="matrix(0.99992334,0,0,-0.9956891,102.67998,30.337856)">
+				<path
+				d="m 0,0 0,7.705 c 0,1.575 -0.305,2.921 -2.211,2.921 -1.958,0 -2.416,-1.27 -2.416,-2.948 l 0,-7.678 -4.22,0 0,14.11 3.941,0 0,-1.5 0.051,0 c 0.89,1.45 2.137,1.983 3.837,1.983 1.199,0 2.697,-0.458 3.613,-1.221 1.344,-1.118 1.627,-2.898 1.627,-4.551 L 4.222,0 0,0 Z"
+				class="text-color"
+				style="fill-opacity:1;fill-rule:nonzero;stroke:none"
+				id="path3446"
+				inkscape:connector-curvature="0" />
+			</g>
+			<!-- g -->
+			<g
+				id="l4"
+				transform="matrix(0.99992334,0,0,-0.9956891,115.18392,19.757763)">
+				<path
+				d="m 0,0 c -1.958,0 -3.407,-1.601 -3.407,-3.506 0,-1.959 1.347,-3.635 3.38,-3.635 2.034,0 3.457,1.473 3.457,3.506 C 3.43,-1.601 2.085,0 0,0 m 6.812,-13.575 c -1.398,-2.363 -4.576,-3.33 -7.143,-3.33 -2.39,0 -4.779,0.738 -6.179,2.772 -0.456,0.66 -0.762,1.398 -0.864,2.186 l 4.884,0 c 0.455,-1.016 1.421,-1.398 2.463,-1.398 2.314,0 3.431,1.6 3.431,3.84 l 0,0.431 -0.049,0 c -0.738,-1.373 -2.364,-2.009 -3.866,-2.009 -4.218,0 -7.116,3.306 -7.116,7.424 0,4.143 2.821,7.601 7.116,7.601 1.45,0 3.077,-0.484 3.892,-1.782 l 0.049,0 0,1.324 4.22,0 0,-12.406 c 0,-1.576 -0.025,-3.254 -0.838,-4.653"
+				class="text-color"
+				style="fill-opacity:1;fill-rule:nonzero;stroke:none"
+				id="path3450"
+				inkscape:connector-curvature="0" />
+			</g>
+			<!-- e -->
+			<g
+				id="l5"
+				transform="matrix(0.99992334,0,0,-0.9956891,130.78913,19.352218)">
+				<path
+				d="m 0,0 c -1.525,0 -2.872,-0.889 -3.202,-2.415 l 6.405,0 C 2.874,-0.889 1.525,0 0,0 m 7.322,-5.262 -10.575,0 c 0.254,-1.677 1.651,-2.668 3.306,-2.668 1.143,0 1.88,0.455 2.566,1.322 l 4.322,0 C 5.722,-9.432 3.23,-11.49 0.053,-11.49 c -4.118,0 -7.474,3.355 -7.474,7.475 0,4.092 3.252,7.575 7.398,7.575 4.32,0 7.446,-3.459 7.446,-7.703 0,-0.382 -0.026,-0.737 -0.101,-1.119"
+				class="text-color"
+				style="fill-opacity:1;fill-rule:nonzero;stroke:none"
+				id="path3454"
+				inkscape:connector-curvature="0" />
+			</g>
+			<!-- r -->
+			<g
+				id="l6"
+				transform="matrix(0.99992334,0,0,-0.9956891,142.8966,22.616386)">
+				<path
+				d="m 0,0 0,-7.755 -4.22,0 0,14.11 3.966,0 0,-1.5 0.051,0 c 0.738,1.45 1.909,1.983 3.534,1.983 l 0,-4.246 C 1.476,2.541 0,2.187 0,0"
+				class="text-color"
+				style="fill-opacity:1;fill-rule:nonzero;stroke:none"
+				id="path3458"
+				inkscape:connector-curvature="0" />
+
+			</g>
+
+			<!-- underscore -->
+			<path
+				id="underscore"
+				d="m 144.60227,30.337955 13.71094,0 0,4.114188 -13.71094,0 0,-4.114187 z"
+				class="brand-color"
+				inkscape:connector-curvature="0" />
+
+			<!-- B -->
+			<g
+				id="l7"
+				transform="matrix(0.99992334,0,0,-0.9956891,166.80886,22.717548)">
+				<path
+				d="m 0,0 -2.416,0 0,-3.431 2.389,0 c 1.195,0 2.264,0.406 2.264,1.802 C 2.237,-0.279 1.118,0 0,0 m -0.56,6.939 -1.856,0 0,-2.922 1.829,0 c 1.043,0 1.908,0.303 1.908,1.498 0,1.196 -0.888,1.424 -1.881,1.424 M 5.109,-6.025 C 3.177,-7.678 1.398,-7.653 -1.043,-7.653 l -5.975,0 0,18.813 5.797,0 c 2.263,0 4.398,-0.026 6.024,-1.83 C 5.593,8.465 5.922,7.396 5.922,6.228 5.922,4.626 5.135,3.229 3.735,2.44 5.795,1.727 6.838,0.202 6.838,-1.931 c 0,-1.5 -0.56,-3.104 -1.729,-4.094"
+				class="text-color"
+				style="fill-opacity:1;fill-rule:nonzero;stroke:none"
+				id="path3464"
+				inkscape:connector-curvature="0" />
+			</g>
+			<!-- r -->
+			<g
+				id="l8"
+				transform="matrix(0.99992334,0,0,-0.9956891,178.47589,23.086054)">
+				<path
+				d="m 0,0 0,-7.283 -4.221,0 0,14.11 3.967,0 0,-1.973 0.051,0 C 0.534,6.303 1.703,6.836 3.33,6.836 l 0,-4.245 C 1.473,2.54 0,2.185 0,0"
+				class="text-color"
+				style="fill-opacity:1;fill-rule:nonzero;stroke:none"
+				id="path3468"
+				inkscape:connector-curvature="0" />
+			</g>
+			<!-- i -->
+			<path
+				d="m 182.51836,16.288783 4.21969,0 0,14.049173 -4.21969,0 0,-14.049172 z"
+				class="text-color"
+				style="fill-opacity:1;fill-rule:nonzero;stroke:none"
+				id="l9"
+				inkscape:connector-curvature="0" />
+			<!-- z -->
+			<g
+				id="l10"
+				transform="matrix(0.99992334,0,0,-0.9956891,187.3805,30.337856)">
+				<path d="m 0,0 0,2.898 5.99,8.008 -5.99,0 0,3.204 10.573,0 0,-3.204 -5.555,-7.702 5.555,0 L 10.573,0 0,0 Z"
+				class="text-color"
+				style="fill-opacity:1;fill-rule:nonzero;stroke:none"
+				id="path3474"
+				inkscape:connector-curvature="0" />
+			</g>
+
+		</svg>
+		</a>
+
+
+	</template>
+	<script>
+		Polymer({
+			is:"bb-logo",
+
+			properties: {
+
+				markonly: {
+					type: Boolean,
+					value: false,
+					reflectToAttribute: true,
+					observer: 'markChange'
+				},
+
+				width: {
+					type: Number,
+					value: 200,
+					reflectToAttribute: true,
+					observer: 'widthChange'
+				},
+
+				"text-color": {
+					type: String,
+					value: '#000000',
+					reflectToAttribute: true,
+					observer: 'textColorChange'
+				},
+
+				"brand-color": {
+					type: String,
+					value: '#e40477',
+					reflectToAttribute: true,
+					observer: 'brandColorChange'
+				},
+
+				"fill-color": {
+					type: String,
+					value: '#ffffff',
+					reflectToAttribute: true,
+					observer: 'fillColorChange'
+				}
+
+			},
+
+			// ~ ~ ~ ~ ~ ~
+
+			created: function(){
+				// this.style.border = "2px solid red";
+				// border: 2px solid red;
+				// width:200px; height:41px;
+			},
+
+			ready: function(){
+				if( typeof BBElements !== "undefined" )
+					BBElements.eleReady( this );
+			},
+
+			// ~ ~ ~ ~ ~ ~
+
+			// getUnresolvedStyles: function(){
+			// 	return {
+			// 		border : "2px solid red",
+			// 		display : "inline-block",
+			// 		width : "200px",
+			// 		height : "41px"
+			// 	}
+			// },
+
+			markChange: function( newVal, oldVal ){
+				// var aspectRatio = 198/41.9;
+				if( newVal==true )
+					this.$.logo.viewBox.baseVal.width = "41.9";
+				else
+					this.$.logo.viewBox.baseVal.width = "198.0";
+
+				// this is some strange behavior?
+				// if i don't change the width first to match the new baseVal proportionally
+				// && then again to what it was originally
+				// then it doen't scale right
+				var w = this.width;
+				if( typeof w == "number"){
+					this.width = w / (200/41.9);
+					this.width = w;
+				}
+			},
+
+			widthChange: function( newVal, oldVal ){
+				this.$.logo.setAttribute('width', newVal);
+			},
+
+			textColorChange: function( newVal, oldVal ){
+				this.customStyle['--text-color'] = newVal;
+				var tc = Polymer.dom(this.root).querySelectorAll('.text-color');
+				tc.forEach(function(ele){
+					ele.style.fill = newVal;
+				});
+			},
+
+			fillColorChange: function( newVal ){
+				this.customStyle['--fill-color'] = newVal;
+				var fc = Polymer.dom(this.root).querySelectorAll('.fill-color');
+				fc.forEach(function(ele){
+					ele.style.fill = newVal;
+				});
+			},
+
+			brandColorChange: function( newVal ){
+				this.customStyle['--brand-color'] = newVal;
+				var bc = Polymer.dom(this.root).querySelectorAll('.brand-color');
+				bc.forEach(function(ele){
+					ele.style.fill = newVal;
+				});
+			}
+		});
+	</script>
+</dom-module>

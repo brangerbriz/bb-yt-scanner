@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>BB-YT SCANNER</title>
+		<meta charset="utf-8">
+		<script src="js/BBElements.js"></script>
+		<script>BBElements.lazyLoad();</script>
+		<link rel="stylesheet" href="css/styles.css">
+	</head>
+	<body>
+
+		<section id="findVidz">
+			<bb-container>
+				<bb-h2>find videos to scan</bb-h2>
+			</bb-container>
+
+			<div class="flex-50-50">
+				<div>
+					<bb-p>
+						choose whether you want to search through a list of results (search query field), a list of videos from a playlist (playlist ID field), or a list of videos from a channel (channel name field) by typing in either a search term, playlist ID or channel ID in the corresponding fields below and pressing their submit button.
+					</bb-p>
+				</div>
+				<div>
+					<bb-p>
+						<input type="text" placeholder="search query" id="queryScan">
+						<button id="subQuery">submit</button>
+						<div class="spacer"></div>
+						<input type="text" placeholder="playlist ID" id="playlistScan">
+						<button id="subPlaylist">submit</button>
+						<div class="spacer"></div>
+						<input type="text" placeholder="channel name" id="channelScan">
+						<button id="subChannel">submit</button>
+					</bb-p>
+				</div>
+			</div>
+		</section>
+
+		<section id="scanVidz" class="hide">
+			<bb-container>
+				<bb-h2>scan video + add to playlist</bb-h2>
+			</bb-container>
+
+			<div class="flex-video-scan">
+				<div id="videoList"><!-- video list goes here --></div>
+				<div id="videoScanner">
+					<div class="flex-buttons">
+						<button id="prevPage">◀◀ page</button>
+						<button id="prevVideo">◀ prev vid</button>
+						<button id="nextVideo"> next vid ▶</button>
+						<button id="nextPage">page ▶▶</button>
+					</div>
+					<div class="spacer"></div>
+					<div class="flex-buttons">
+						<input type="text" placeholder="your playlist id" id="targPlaylistId">
+						<button id="addToPLBtn">add to playlist</button>
+						<input type="text" placeholder="playback rate (0-2)" id="videoSpeed">
+						<button id="updateSpeed">update speed</button>
+					</div>
+					<div class="spacer"></div>
+					<div id="videoPlayer"><!-- iframe player goes here --></div>
+					<bb-p>
+						you can use the following shorcuts keys for the buttons above: <br>
+						<b>[up arrow]</b> ◀ prev vid &nbsp;&nbsp; <b>[down arrow]</b> next vid ▶ <br>
+						<b>[left arrow]</b> ◀◀ page &nbsp;&nbsp; <b>[right arrow]</b> page ▶▶<br>
+						<b>[ctrl+a]</b> add to playlist
+					</bb-p>
+				</div>
+			</div>
+		</section>
+
+		<section id="storyBoard"><!-- video storyboard goes here --></section>
+
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="https://apis.google.com/js/client.js"></script>
+		<script src="https://www.youtube.com/iframe_api"></script>
+		<script>let apiKey = "{{apiKey}}"</script>
+		<script src="js/main.js"></script>
+	</body>
+</html>

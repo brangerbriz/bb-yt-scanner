@@ -1,0 +1,60 @@
+<dom-module id="bb-cell">
+<!--
+	@name
+		bb-cell
+
+	@description
+		an info/data cell, used inside of <bb-row>
+
+	@element
+		<bb-cell></bb-cell> 
+	
+	@attributes
+		{
+			"scale": {
+				"type": "Number",
+				"value": "1", 
+				"info" : "scale the size of the cell proportionally to it's sibling cells, ex: scale=\"2\" would be twice as big as the other cells in that <bb-row>"
+			}
+		}
+	
+-->
+	<template>
+
+		<style>			
+
+			:host {
+				font-family: 'Graphik-Regular';
+				font-size: 16px;
+				color:#000;				
+				width:0; /*otherwise flex-grow doesn't work as expected?*/
+			}	
+
+		</style>
+
+		<content></content>		
+	
+	</template>
+	<script>
+		Polymer({
+			is:"bb-cell",
+			properties: {
+
+				scale: { 
+					type: Number,
+					value: 1, 
+					reflectToAttribute: true, 
+					observer: 'flexGrow'
+				}
+
+			},			
+			ready: function(){
+				if( typeof BBElements !== "undefined" )
+					BBElements.eleReady( this );
+			},
+			flexGrow: function( newVal, oldVal ){
+				this.style.flexGrow = newVal;
+			}		
+		});
+	</script>
+</dom-module>
