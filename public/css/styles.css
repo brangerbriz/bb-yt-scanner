@@ -139,6 +139,7 @@ input {
 	border-bottom: none;
 	cursor: pointer;
 }
+
 #bulkAdder:hover { border-bottom: solid 2px; }
 
 #add-to-section > div {
