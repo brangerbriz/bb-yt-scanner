@@ -129,3 +129,24 @@ input {
 	display: inline-block;;
 	width:50%;
 }
+
+/* ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~  */
+/* ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~  ADD TO PLAYLIST */
+/* ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~  */
+
+#bulkAdder {
+	color: #e40477;
+	border-bottom: none;
+	cursor: pointer;
+}
+#bulkAdder:hover { border-bottom: solid 2px; }
+
+#add-to-section > div {
+	max-width: 600px;
+	width:90%;
+	margin: 0 auto;
+}
+#add-to-section #status {
+	font-family: monospace;
+	font-size: 12px;
+}

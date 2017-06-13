@@ -115,6 +115,41 @@ io.on('connection', function(socket){
 		});
 	});
 
+	// ..... client would like to add a list of videos to a playlist ......
+	socket.on('add list to playlist', ( data )=>{
+
+		oauth2Client.getToken( data.gcode, function (err, tokens) {
+			if (err) console.log(err);
+			else oauth2Client.setCredentials(tokens);
+
+			let cnt = 0;
+
+			function addAnother( id ){
+				youtube.playlistItems.insert({
+					auth: oauth2Client,
+					part: 'snippet',
+					resource: {
+						snippet:{
+							playlistId: data.playlist,
+							resourceId: {
+								kind: "youtube#video",
+								videoId: data.list[cnt]
+							}
+						}
+					}
+				}, function(err, res){
+					if(err) console.log(err);
+					socket.emit('list add response',res.snippet.title);
+					cnt++;
+					if( cnt < data.list.length ) addAnother( cnt );
+				});
+			}
+
+			addAnother( cnt );
+
+		});
+	});
+
 });
 
 
@@ -140,6 +175,9 @@ app.get('/', function (req, res){
 });
 app.get('/app', function (req, res){
 	res.render('app', { apiKey: yt_credz.apiKey });
+});
+app.get('/add', function (req, res){
+	res.render('add');
 });
 
 // listen ---------------------

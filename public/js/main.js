@@ -10,10 +10,16 @@
 	let queryScan = document.querySelector('#queryScan');
 	let playlistScan = document.querySelector('#playlistScan');
 	let channelScan = document.querySelector('#channelScan');
+	let bulkAdder = document.querySelector('#bulkAdder');
 
 	subQuery.addEventListener('click', getVidList );
 	subPlaylist.addEventListener('click', getVidList );
 	subChannel.addEventListener('click', getVidList );
+	bulkAdder.addEventListener('click',function(){
+		let urlstr = window.location.toString();
+		urlstr = urlstr.replace('app','add');
+		window.location = urlstr;
+	});
 
 	// scan vidz -------------------------------------------------------
 	let videoList = document.querySelector('#videoList');

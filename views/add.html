@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>BB-YT SCANNER</title>
+		<meta charset="utf-8">
+		<script src="js/BBElements.js"></script>
+		<script>BBElements.lazyLoad();</script>
+		<link rel="stylesheet" href="css/styles.css">
+	</head>
+	<body>
+
+		<section id="add-to-section">
+
+			<bb-container>
+				<bb-h2> add to playlist </bb-h2>
+			</bb-container>
+
+			<div>
+				<bb-p>
+					paste a list of YouTube video urls below, separated by line breaks ( carriage returns ), then place the id of the playlist you want to add these urls to in the input field and click the "add to playlist" button
+				</bb-p>
+				<textarea id="add-video-list" rows="8" cols="80"></textarea>
+				<input type="text" placeholder="playlist ID" id="playlist-id">
+				<button id="add-list-button">add to playlist</button>
+				<span id="status"> ... </span>
+			</div>
+
+		</section>
+
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+
+			let socket = io();
+			let resList = [];
+			let reqList = [];
+
+			let addBtn = document.querySelector('#add-list-button');
+			let plid = document.querySelector('#playlist-id');
+			let list = document.querySelector('#add-video-list');
+			let status = document.querySelector('#status');
+
+			socket.on('list add response', function(data){
+				console.log('added',data);
+				resList.push(data);
+				status.textContent = `added ${resList.length} of ${reqList.length}`;
+				if( resList.length == reqList.length ){
+					status.innerHTML = `finished adding list to <a href="https://www.youtube.com/playlist?list=${plid.value}" target="_blank">playlist!</a>`;
+				}
+			});
+
+			addBtn.onclick = function(){
+				if(plid.value===""){
+					alert('the playlist id field is empty');
+					return;
+				} else if(list.value===""){
+					alert('the textarea is empty, expecting list of youtube videos');
+					return;
+				}
+
+				let token = window.location.toString().split('code=')[1];
+
+				let vz = list.value.split('\n');
+				let start = vz[0].indexOf('?v=') + 3;
+				reqList = vz.map((url)=>url.substr(start,99999));
+				resList = [];
+
+				console.log('sending',reqList);
+				status.textContent = "sending list to server";
+
+				socket.emit( 'add list to playlist',{
+					gcode: token,
+					playlist: plid.value,
+					list: reqList
+				});
+			}
+
+		</script>
+	</body>
+</html>
