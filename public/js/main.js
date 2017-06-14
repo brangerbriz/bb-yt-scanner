@@ -1,6 +1,7 @@
 	/* jshint esversion: 6 */
 
 	let socket = io();
+	let username;
 
 	// find vidz -------------------------------------------------------
 	let findVidz = document.querySelector('#findVidz');
@@ -77,7 +78,11 @@
 		}
 	},100);
 
-
+	function getUserName(){
+		if(typeof username=="undefined")
+			username = prompt("what's your first name").toLowerCase();
+		return username;
+	}
 
 	// -----------------------------------------------------------------
 	// ------------------------------------------------------- FIND VIDZ
@@ -86,7 +91,27 @@
 	function getVidList(eve){
 		listType = eve.target.id;
 
-		if(eve.target.id=="subQuery")
+		let tcode = window.location.toString().split('code=')[1];
+
+		socket.emit( 'get db user confirmation', {
+			username:getUserName(), gcode:tcode
+		});
+	}
+
+	socket.on('user confirmation from db',function(data){
+		if( data == "new_user" ){
+			console.log('FIRST TIME USER CONFIRMED');
+			getVidListPostConfirmation();
+		} else if (data == "old_user" ){
+			console.log('RETURNING USER CONFIRMED');
+			getVidListPostConfirmation();
+		} else {
+			console.warn('ISSUE GETTING DB INFO FROM SERVER');
+		}
+	});
+
+	function getVidListPostConfirmation(){
+		if(listType=="subQuery")
 
 			queryForList('search',{
 				part: 'snippet', maxResults: 25,
@@ -94,20 +119,22 @@
 				q: queryScan.value
 			});
 
-		else if(eve.target.id=="subPlaylist")
+		else if(listType=="subPlaylist")
 
 			queryForList('playlistItems',{
 				part: 'snippet,contentDetails',
 				maxResults: 25, playlistId: playlistScan.value
 			});
 
-		else if(eve.target.id=="subChannel")
+		else if(listType=="subChannel")
 
 			queryForList('channels',{
 				part: 'snippet,contentDetails,statistics',
 				maxResults: 25, forUsername: channelScan.value
 			});
 	}
+
+
 
 	function queryForList( api, reqObj ){
 		// query api for new list of videos ................
@@ -289,6 +316,7 @@
 		let id = videoList.children[i].id.split("id__")[1];
 
 		socket.emit( 'add to playlist',{
+			username: getUserName(),
 			gcode: token,
 			playlist: targPlaylistId.value,
 			vid: id

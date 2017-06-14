@@ -30,6 +30,7 @@
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 
+			let username = prompt("what's your first name").toLowerCase();
 			let socket = io();
 			let resList = [];
 			let reqList = [];
@@ -68,6 +69,7 @@
 				status.textContent = "sending list to server";
 
 				socket.emit( 'add list to playlist',{
+					username: username,
 					gcode: token,
 					playlist: plid.value,
 					list: reqList
