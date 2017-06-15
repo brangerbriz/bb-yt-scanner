@@ -179,10 +179,16 @@ io.on('connection', function(socket){
 					}
 				}
 			}, function(err, res){
-				if(err) console.log(err);
-				socket.emit('list add response',res.snippet.title);
-				cnt++;
-				if( cnt < data.list.length ) addAnother( cnt );
+				if(err) {
+					console.log(err);
+					socket.emit('list add response',`${err.code}:${err.errors[0].message}`);
+					cnt++;
+					if( cnt < data.list.length ) addAnother( cnt );
+				} else {
+					socket.emit('list add response',res.snippet.title);
+					cnt++;
+					if( cnt < data.list.length ) addAnother( cnt );
+				}
 			});
 		}
 
