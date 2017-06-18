@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 let db = require('./usersdb');
+let twdb = require('./target_word_playlist_data');
 
 const express = require('express');
 const app = express();
@@ -43,12 +44,42 @@ function saveNewUserToDB( username, token ){
 	let string = JSON.stringify(db,null,'\t');
 	fs.writeFile(__dirname+'/usersdb.json',string,function(err) {
 		if(err) return console.error(err);
-		else console.log('added '+username+' to userdb.json');
+		else console.log('added '+username+' to usersdb.json');
 	});
 }
 
 function getUserTokenFromDB( username ){
 	return db[username];
+}
+
+// ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~
+// ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~   TARGETED WORD PLAYLIST DB
+// ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~
+
+function arrHasData( arr ){
+	for (let i = 0; i < arr.length; i++) {
+		if( arr[i].length > 0 ) return true;
+	}
+	return false;
+}
+
+function addNewTargetWordPlaylist( o ){
+	if( typeof twdb[ o.playlist ]=="undefined" )
+		twdb[ o.playlist ] = {};
+
+	for (let i = 0; i < o.time.length; i++) {
+		if(o.time[i].length>0){
+			twdb[o.playlist][ o.list[i] ] = o.time[i];
+		}
+	}
+
+	console.log('ran add func', twdb[o.playlist]);
+
+	let string = JSON.stringify(twdb,null,'\t');
+	fs.writeFile(__dirname+'/target_word_playlist_data.json',string,function(err) {
+		if(err) return console.error(err);
+		else console.log('added '+o.playlist+' to target_word_playlist_data.json');
+	});
 }
 
 // ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~ . ~ * ~
@@ -97,6 +128,7 @@ function getYTStoryBoardURLz( id, callback ){
 
 io.on('connection', function(socket){
 	// console.log('a user connected');
+	socket.emit('target word playlist data', twdb );
 
 	socket.on('refresh',(username)=>{
 		// THERE IS NO FUNCTION TO CALL THIS EVENT, READ BELOW:
@@ -137,6 +169,7 @@ io.on('connection', function(socket){
 	});
 
 	// ..... client would like to add to playlist ......
+	// ..... via app.html ( main app )
 	socket.on('add to playlist', ( data )=>{
 		oauth2Client.setCredentials( getUserTokenFromDB(data.username) );
 
@@ -160,8 +193,12 @@ io.on('connection', function(socket){
 	});
 
 	// ..... client would like to add a list of videos to a playlist ......
+	// ...... via add.html ( url bulk list adder )
 	socket.on('add list to playlist', ( data )=>{
 		oauth2Client.setCredentials( getUserTokenFromDB(data.username) );
+
+		console.log('data.time',data.time, arrHasData(data.time));
+		if( arrHasData(data.time) ) addNewTargetWordPlaylist( data );
 
 		let cnt = 0;
 

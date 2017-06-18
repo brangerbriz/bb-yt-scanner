@@ -2,6 +2,9 @@
 
 	let socket = io();
 	let username;
+	let twdb, plid;
+
+	socket.on('target word playlist data',(data)=>twdb=data);
 
 	// find vidz -------------------------------------------------------
 	let findVidz = document.querySelector('#findVidz');
@@ -90,6 +93,8 @@
 
 	function getVidList(eve){
 		listType = eve.target.id;
+
+		if(listType=="subPlaylist") plid = playlistScan.value;
 
 		let tcode = window.location.toString().split('code=')[1];
 
@@ -209,6 +214,19 @@
 		} else {
 			iframePlayer.loadVideoById(id);
 			iframePlayer.stopVideo();
+		}
+
+		// if playlist is in targeted word playlists db
+		// TODO .seekTo(seconds) .playVideo();
+		if( typeof plid!=="undefined"){
+			if( typeof twdb[plid]!=="undefined"){
+				let tc = twdb[plid][id];
+				let h = parseInt(tc.substr(0,2))*60*60;
+				let m = parseInt(tc.substr(3,2))*60;
+				let s = parseInt(tc.substr(6,2));
+				iframePlayer.seekTo(h+m+s);
+				iframePlayer.playVideo();
+			}
 		}
 
 		// clear previous storyboard

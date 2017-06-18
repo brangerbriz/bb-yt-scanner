@@ -62,7 +62,9 @@
 
 				let vz = list.value.split('\n');
 				let start = vz[0].indexOf('?v=') + 3;
-				reqList = vz.map((url)=>url.substr(start,99999));
+				reqList = vz.map((url)=>url.substr(start,11));
+				let tcStart = vz[0].indexOf('&t=')+3;
+				let tcList = vz.map((url)=>url.substr(tcStart,9));
 				resList = [];
 
 				console.log('sending',reqList);
@@ -72,7 +74,8 @@
 					username: username,
 					gcode: token,
 					playlist: plid.value,
-					list: reqList
+					list: reqList,
+					time: tcList
 				});
 			}
 
